@@ -9,6 +9,8 @@ import {
   Platform,
 } from 'react-native';
 
+import Card from '../UI/Card';
+
 const ProductItem = ({
   image,
   title,
@@ -24,7 +26,7 @@ const ProductItem = ({
   }
 
   return (
-    <View style={styles.product}>
+    <Card style={styles.product}>
       <View style={styles.touchable}>
         <TouchableCmp onPress={onSelect} useForeground>
           <View>
@@ -39,7 +41,7 @@ const ProductItem = ({
           </View>
         </TouchableCmp>
       </View>
-    </View>
+    </Card>
   );
 };
 
@@ -47,13 +49,6 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
   product: {
-    shadowColor: 'black',
-    shadowOpacity: 0.08,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: 'white',
     height: 300,
     margin: 20,
   },
