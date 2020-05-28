@@ -17,7 +17,7 @@ import Input from '../../components/UI/Input';
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
 const formReducer = (state, action) => {
-  if (action.type === 'FORM_INPUT_UPDATE') {
+  if (action.type === FORM_INPUT_UPDATE) {
     const updatedValues = {
       ...state.inputValues,
       [action.input]: action.value,
@@ -112,67 +112,67 @@ const EditProductScreen = ({ navigation }) => {
   );
 
   return (
-    <KeyboardAvoidingView
-      // style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={100}
-    >
-      <ScrollView>
-        <View style={styles.form}>
+    // <KeyboardAvoidingView
+    //   style={{ flex: 1 }}
+    //   behavior="padding"
+    //   keyboardVerticalOffset={100}
+    // >
+    <ScrollView>
+      <View style={styles.form}>
+        <Input
+          id="title"
+          label="Title"
+          errorText="Please enter a valid title"
+          keyboardType="default"
+          autoCapitalize="sentences"
+          autoCorrect
+          returnKeyType="next"
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.title : ''}
+          initiallyValid={!!editedProduct}
+          required
+        />
+        <Input
+          id="imageUrl"
+          label="Image Url"
+          errorText="Please enter a valid image url"
+          keyboardType="default"
+          returnKeyType="next"
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.imageUrl : ''}
+          initiallyValid={!!editedProduct}
+          required
+        />
+        {editedProduct ? null : (
           <Input
-            id="title"
-            label="Title"
-            errorText="Please enter a valid title"
-            keyboardType="default"
-            autoCapitalize="sentences"
-            autoCorrect
+            id="price"
+            label="Price"
+            errorText="Please enter a valid price"
+            keyboardType="decimal-pad"
             returnKeyType="next"
             onInputChange={inputChangeHandler}
-            initialValue={editedProduct ? editedProduct.title : ''}
-            initiallyValid={!!editedProduct}
             required
+            min={0.1}
           />
-          <Input
-            id="imageUrl"
-            label="Image Url"
-            errorText="Please enter a valid image url"
-            keyboardType="default"
-            returnKeyType="next"
-            onInputChange={inputChangeHandler}
-            initialValue={editedProduct ? editedProduct.imageUrl : ''}
-            initiallyValid={!!editedProduct}
-            required
-          />
-          {editedProduct ? null : (
-            <Input
-              id="price"
-              label="Price"
-              errorText="Please enter a valid price"
-              keyboardType="decimal-pad"
-              returnKeyType="next"
-              onInputChange={inputChangeHandler}
-              initiallyValid={!!editedProduct}
-              required
-              min={1}
-            />
-          )}
-          <Input
-            id="description"
-            label="Description"
-            errorText="Please must a minimum of 5 characters"
-            keyboardType="default"
-            onInputChange={inputChangeHandler}
-            initialValue={editedProduct ? editedProduct.description : ''}
-            autoCapitalize="sentences"
-            autoCorrect
-            multiline
-            numberOfLines={3}
-            required
-            minLength={5}
-          />
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        )}
+        <Input
+          id="description"
+          label="Description"
+          errorText="Please must a minimum of 5 characters"
+          keyboardType="default"
+          onInputChange={inputChangeHandler}
+          initialValue={editedProduct ? editedProduct.description : ''}
+          initiallyValid={!!editedProduct}
+          autoCapitalize="sentences"
+          autoCorrect
+          multiline
+          numberOfLines={3}
+          required
+          minLength={5}
+        />
+      </View>
+    </ScrollView>
+    // </KeyboardAvoidingView>
   );
 };
 
