@@ -7,31 +7,40 @@ export const SET_PRODUCT = 'SET_PRODUCT';
 
 export const fetchProducts = () => {
   return async dispatch => {
-    const response = await fetch(
-      'https://rn-shop-3390a.firebaseio.com/products.json',
-    );
-
-    const resData = await response.json();
-
-    console.log(resData);
-    const loadedProducts = [];
-
-    for (const key in resData) {
-      loadedProducts.push(
-        new Product(
-          key,
-          'u1',
-          resData[key].title,
-          resData[key].imageUrl,
-          resData[key].description,
-          resData[key].price,
-        ),
+    try {
+      const response = await fetch(
+        'https://rn-shop-3390a.firebaseio.com/products.json',
       );
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const resData = await response.json();
+
+      console.log(resData);
+      const loadedProducts = [];
+
+      for (const key in resData) {
+        loadedProducts.push(
+          new Product(
+            key,
+            'u1',
+            resData[key].title,
+            resData[key].imageUrl,
+            resData[key].description,
+            resData[key].price,
+          ),
+        );
+      }
+
+      // console.log('loaded', loadedProducts);
+
+      dispatch({ type: SET_PRODUCT, products: loadedProducts });
+    } catch (err) {
+      // send to custom analytics server
+      throw err;
     }
-
-    console.log('loaded', loadedProducts);
-
-    dispatch({ type: SET_PRODUCT, products: loadedProducts });
   };
 };
 
