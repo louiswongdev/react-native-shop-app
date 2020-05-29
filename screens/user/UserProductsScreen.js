@@ -1,5 +1,13 @@
-import React from 'react';
-import { StyleSheet, Alert, FlatList, Platform, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  StyleSheet,
+  Alert,
+  FlatList,
+  Platform,
+  Button,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector, useDispatch } from 'react-redux';
 import * as productsActions from '../../store/actions/products';
@@ -13,8 +21,28 @@ const UserProductsScreen = ({ navigation }) => {
   const userProducts = useSelector(state => state.products.userProducts);
   const dispatch = useDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+
   const editProductHandler = id => {
     navigation.navigate('EditProduct', { productId: id });
+  };
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert('An error occurred!', error, [{ text: 'Okay' }]);
+    }
+  }, [error]);
+
+  const deleteProduct = async id => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(productsActions.deleteProduct(id));
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   };
 
   const deleteHandler = id => {
@@ -24,11 +52,19 @@ const UserProductsScreen = ({ navigation }) => {
         text: 'Yes',
         style: 'destructive',
         onPress: () => {
-          dispatch(productsActions.deleteProduct(id));
+          deleteProduct(id);
         },
       },
     ]);
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
 
   return (
     <FlatList
@@ -91,4 +127,10 @@ UserProductsScreen.navigationOptions = navData => {
 
 export default UserProductsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
