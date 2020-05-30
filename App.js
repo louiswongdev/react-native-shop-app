@@ -8,6 +8,7 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 
 import productReducer from './store/reducers/products';
+import authReducer from './store/reducers/auth';
 import cartReducer from './store/reducers/cart';
 import ordersReducer from './store/reducers/orders';
 import ShopNavigator from './navigation/ShopNavigator';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   products: productReducer,
   cart: cartReducer,
   orders: ordersReducer,
+  auth: authReducer,
 });
 
 const middlewares = [ReduxThunk];
