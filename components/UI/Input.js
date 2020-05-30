@@ -38,7 +38,7 @@ const Input = ({
   });
 
   useEffect(() => {
-    if (inputState.touched) {
+    if (inputState.touched || inputState.value.length != 0) {
       onInputChange(id, inputState.value, inputState.isValid);
     }
   }, [inputState, onInputChange, id]);
