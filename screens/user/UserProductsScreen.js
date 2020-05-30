@@ -6,6 +6,7 @@ import {
   Platform,
   Button,
   View,
+  Text,
   ActivityIndicator,
 } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -62,6 +63,21 @@ const UserProductsScreen = ({ navigation }) => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
+
+  if (userProducts.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginHorizontal: 20,
+        }}
+      >
+        <Text>No products found. Please start creating some products.</Text>
       </View>
     );
   }

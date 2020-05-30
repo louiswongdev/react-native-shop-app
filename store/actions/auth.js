@@ -3,8 +3,6 @@ export const LOGIN = 'SIGNUP';
 
 export const signup = (email, password) => {
   return async dispatch => {
-    console.log('email:', email);
-    console.log('password', password);
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDiTwN6cRcM4IVLKzw0NNfnR7JGpbcUVIY',
       {
@@ -32,7 +30,6 @@ export const signup = (email, password) => {
     }
 
     const resData = await response.json();
-    console.log(resData);
 
     dispatch({ type: SIGNUP, token: resData.idToken, userId: resData.localId });
   };
@@ -40,8 +37,6 @@ export const signup = (email, password) => {
 
 export const login = (email, password) => {
   return async dispatch => {
-    console.log('email:', email);
-    console.log('password', password);
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDiTwN6cRcM4IVLKzw0NNfnR7JGpbcUVIY',
       {
@@ -71,7 +66,6 @@ export const login = (email, password) => {
     }
 
     const resData = await response.json();
-    console.log(resData);
 
     dispatch({ type: LOGIN, token: resData.idToken, userId: resData.localId });
   };
