@@ -33,8 +33,12 @@ const StartupScreen = ({ navigation }) => {
         return;
       }
 
+      // what we should get back is a positive number, meaning it's in the future
+      // i.e hasn't expired yet
+      const expirationTime = expirationDate.getTime() - new Date().getTime();
+
       navigation.navigate('Shop');
-      dispatch(authActions.authenticate(userId, token));
+      dispatch(authActions.authenticate(userId, token, expirationTime));
     };
 
     tryLogin();
