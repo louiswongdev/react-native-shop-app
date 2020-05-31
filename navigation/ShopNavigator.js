@@ -4,10 +4,6 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from '@react-navigation/drawer';
-// import {
-//   createDrawerNavigator,
-//   DrawerNavigatorItems,
-// } from 'react-navigation-drawer';
 import { Platform, SafeAreaView, Button, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -35,7 +31,6 @@ import AuthScreen, {
 
 import Colors from '../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
-import StartupScreen from '../screens/StartupScreen';
 
 import * as authActions from '../store/actions/auth';
 
@@ -76,26 +71,6 @@ export const ProductsNavigator = () => {
   );
 };
 
-// const ProductsNavigator = createStackNavigator(
-//   {
-//     ProductsOverview: ProductsOverviewScreen,
-//     ProductDetail: ProductDetailScreen,
-//     Cart: CartScreen,
-//   },
-//   {
-//     navigationOptions: {
-//       drawerIcon: drawerConfig => (
-//         <Ionicons
-//           name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-//           size={23}
-//           color={drawerConfig.tintColor}
-//         />
-//       ),
-//     },
-//     defaultNavigationOptions: defaultNavOptions,
-//   },
-// );
-
 const OrderStackNavigator = createStackNavigator();
 
 export const OrdersNavigator = () => {
@@ -109,24 +84,6 @@ export const OrdersNavigator = () => {
     </OrderStackNavigator.Navigator>
   );
 };
-
-// const OrdersNavigator = createStackNavigator(
-//   {
-//     Orders: OrdersScreen,
-//   },
-//   {
-//     navigationOptions: {
-//       drawerIcon: drawerConfig => (
-//         <Ionicons
-//           name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
-//           size={23}
-//           color={drawerConfig.tintColor}
-//         />
-//       ),
-//     },
-//     defaultNavigationOptions: defaultNavOptions,
-//   },
-// );
 
 const AdminStackNavigator = createStackNavigator();
 
@@ -146,25 +103,6 @@ export const AdminNavigator = () => {
     </AdminStackNavigator.Navigator>
   );
 };
-
-// const AdminNavigator = createStackNavigator(
-//   {
-//     UserProducts: UserProductsScreen,
-//     EditProduct: EditProductScreen,
-//   },
-//   {
-//     navigationOptions: {
-//       drawerIcon: drawerConfig => (
-//         <Ionicons
-//           name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
-//           size={23}
-//           color={drawerConfig.tintColor}
-//         />
-//       ),
-//     },
-//     defaultNavigationOptions: defaultNavOptions,
-//   },
-// );
 
 const ShopDrawerNavigator = createDrawerNavigator();
 
@@ -236,38 +174,6 @@ export const ShopNavigator = () => {
   );
 };
 
-// const ShopNavigator = createDrawerNavigator(
-//   {
-//     Products: ProductsNavigator,
-//     Orders: OrdersNavigator,
-//     Admin: AdminNavigator,
-//   },
-//   {
-//     contentOptions: {
-//       activeTintColor: Colors.primary,
-//     },
-//     contentComponent: props => {
-//       const dispatch = useDispatch();
-
-//       return (
-//         <View style={{ flex: 1, paddingTop: 30 }}>
-//           <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-//             <DrawerNavigatorItems {...props} />
-//             <Button
-//               title="Logout"
-//               color={Colors.primary}
-//               onPress={() => {
-//                 dispatch(authActions.logout());
-//                 // props.navigation.navigate('Auth');
-//               }}
-//             />
-//           </SafeAreaView>
-//         </View>
-//       );
-//     },
-//   },
-// );
-
 const AuthStackNavigator = createStackNavigator();
 
 export const AuthNavigator = () => {
@@ -281,20 +187,3 @@ export const AuthNavigator = () => {
     </AuthStackNavigator.Navigator>
   );
 };
-
-// const AuthNavigator = createStackNavigator(
-//   {
-//     Auth: AuthScreen,
-//   },
-//   {
-//     defaultNavigationOptions: defaultNavOptions,
-//   },
-// );
-
-// const MainNavigator = createSwitchNavigator({
-//   Startup: StartupScreen,
-//   Auth: AuthNavigator,
-//   Shop: ShopNavigator,
-// });
-
-// export default createAppContainer(MainNavigator);
