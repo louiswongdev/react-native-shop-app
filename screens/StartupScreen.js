@@ -18,7 +18,8 @@ const StartupScreen = ({ navigation }) => {
     const tryLogin = async () => {
       const userData = await AsyncStorage.getItem('userData');
       if (!userData) {
-        navigation.navigate('Auth');
+        // navigation.navigate('Auth');
+        dispatch(authActions.setDidTryAutoLogin());
         return;
       }
 
@@ -29,7 +30,8 @@ const StartupScreen = ({ navigation }) => {
 
       // check if expirationDate is in the past (which means token has expired)
       if (expirationDate <= new Date() || !token || !userId) {
-        navigation.navigate('Auth');
+        // navigation.navigate('Auth');
+        dispatch(authActions.setDidTryAutoLogin());
         return;
       }
 
@@ -37,7 +39,7 @@ const StartupScreen = ({ navigation }) => {
       // i.e hasn't expired yet
       const expirationTime = expirationDate.getTime() - new Date().getTime();
 
-      navigation.navigate('Shop');
+      // navigation.navigate('Shop');
       dispatch(authActions.authenticate(userId, token, expirationTime));
     };
 

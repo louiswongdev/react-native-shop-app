@@ -36,12 +36,12 @@ const ProductsOverviewScreen = ({ navigation }) => {
   }, [dispatch, setIsLoading, setError]);
 
   useEffect(() => {
-    const willFocusSub = navigation.addListener('willFocus', () => {
+    const unsubscribe = navigation.addListener('focus', () => {
       loadProducts();
     });
 
     return () => {
-      willFocusSub.remove();
+      unsubscribe();
     };
   }, [loadProducts]);
 
@@ -123,7 +123,7 @@ const ProductsOverviewScreen = ({ navigation }) => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
     headerTitle: 'All Products',
     headerLeft: () => (

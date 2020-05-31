@@ -41,11 +41,11 @@ const formReducer = (state, action) => {
   return state;
 };
 
-const EditProductScreen = ({ navigation }) => {
+const EditProductScreen = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
-  const prodId = navigation.getParam('productId');
+  const prodId = route.params ? route.params.productId : null;
   const editedProduct = useSelector(state =>
     state.products.userProducts.find(prod => prod.id === prodId),
   );
@@ -115,7 +115,19 @@ const EditProductScreen = ({ navigation }) => {
   }, [dispatch, prodId, formState]);
 
   useEffect(() => {
-    navigation.setParams({ submit: submitHandler });
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={HeaderButton}>
+          <Item
+            title="Save"
+            iconName={
+              Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'
+            }
+            onPress={submitHandler}
+          />
+        </HeaderButtons>
+      ),
+    });
   }, [submitHandler]);
 
   const inputChangeHandler = useCallback(
@@ -203,24 +215,10 @@ const EditProductScreen = ({ navigation }) => {
   );
 };
 
-EditProductScreen.navigationOptions = navData => {
-  const submitFn = navData.navigation.getParam('submit');
-
+export const screenOptions = navData => {
+  const routeParams = navData.route.params ? navData.route.params : {};
   return {
-    headerTitle: navData.navigation.getParam('productId')
-      ? 'Edit Product'
-      : 'Add Product',
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Save"
-          iconName={
-            Platform.OS === 'android' ? 'md-checkmark' : 'ios-checkmark'
-          }
-          onPress={submitFn}
-        />
-      </HeaderButtons>
-    ),
+    headerTitle: routeParams.productId ? 'Edit Product' : 'Add Product',
   };
 };
 

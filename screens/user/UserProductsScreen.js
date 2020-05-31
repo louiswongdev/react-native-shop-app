@@ -113,7 +113,7 @@ const UserProductsScreen = ({ navigation }) => {
   );
 };
 
-UserProductsScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
     headerTitle: 'Your Products',
     headerLeft: () => (
